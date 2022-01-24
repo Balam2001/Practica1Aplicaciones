@@ -4,6 +4,7 @@ using Practica1Aplicaciones.Domain.Models;
 using Practica1Aplicaciones.Infraestructure.Data;
 using Practica1Aplicaciones.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -83,6 +84,35 @@ namespace Practica1Aplicaciones.Controllers
         }
 
         
+
+        [HttpGet]
+        [Route("films/filters")]
+        public async Task<IQueryable<Moovy>> GetByFilter([FromBody] Moovy MoovieSearch)
+        {
+            if (MoovieSearch == null)
+            {
+                return new List<Moovy>().AsQueryable();
+            }
+            var query = context.Moovies.AsQueryable();
+
+            if (!string.IsNullOrEmpty(MoovieSearch.Title))
+            {
+                query = query.Where(x => x.Title.Contains(MoovieSearch.Title));
+            }
+                
+            if (!string.IsNullOrEmpty(MoovieSearch.Director))
+            {
+                query = query.Where(x => x.Director.Contains(MoovieSearch.Director));
+            }
+                
+            if (MoovieSearch.PublicationYear >= 0)
+            {
+                query = query.Where(x => x.PublicationYear == MoovieSearch.PublicationYear);
+            }
+            var search = await query.ToListAsync();
+            return search.AsQueryable().AsNoTracking();
+
+        }
 
 
 
