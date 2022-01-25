@@ -20,7 +20,7 @@ namespace Practica1Aplicaciones.Infraestructure.Data
 
         public virtual DbSet<Moovy> Moovies { get; set; }
 
-       /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+/* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {

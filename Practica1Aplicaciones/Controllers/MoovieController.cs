@@ -31,7 +31,6 @@ namespace Practica1Aplicaciones.Controllers
 
         [HttpGet]
         [Route("films/{id:int}")]
-
         public async Task<Moovy> GetById(int id)
         {
             var query = await context.Moovies.FirstOrDefaultAsync(x => x.IdMoovie == id);
@@ -56,7 +55,6 @@ namespace Practica1Aplicaciones.Controllers
 
         [HttpPut]
         [Route("films/{id:int}")]
-
         public async Task<bool> Update(int id, [FromBody] Moovy moovy)
         {
             var Entidad = await GetById(id);
